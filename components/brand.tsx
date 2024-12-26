@@ -15,11 +15,11 @@ export default function Brand({
    containerLabel = "brand-container",
    src = "/icons/brand.svg",
    alt = "brand-logo",
-   width,
-   height,
+   width = 24,
+   height = 24,
 }: Props) {
    return (
-      <div aria-label={containerLabel}>
+      <div aria-label={containerLabel} className="relative">
          <Image
             src={src}
             alt={alt}

@@ -26,6 +26,9 @@ const config: Config = {
                400: "#9FF443",
             },
          },
+         fontFamily: {
+            primary: "var(--font-primary)",
+         },
       },
    },
    plugins: [],
