@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import LayoutMain from "@/components/layout/main"
+import StoreMockProvider from "@/lib/store/index.mock"
 
 const geistSans = localFont({
    src: "./fonts/GeistVF.woff",
@@ -29,7 +30,9 @@ export default function RootLayout({
          <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
          >
-            <LayoutMain>{children}</LayoutMain>
+            <StoreMockProvider>
+               <LayoutMain>{children}</LayoutMain>
+            </StoreMockProvider>
          </body>
       </html>
    )
