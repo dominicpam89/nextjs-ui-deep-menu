@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 
 const menuMock: TypeMenu[] = [
    {
@@ -150,6 +151,7 @@ const menuMock: TypeMenu[] = [
 
 const StoreContext = createContext({
    menus: menuMock,
+   toggleMenu: (menuId: string) => {},
 })
 
 interface Props {
@@ -157,10 +159,29 @@ interface Props {
 }
 
 export default function StoreMockProvider({ children }: Props) {
-   const [menus] = useState(menuMock)
+   const [menus, setMenus] = useState(menuMock)
+   const toggleMenu = (menuId: string) => {
+      const toggleMenuState = (menus: TypeMenu[]): TypeMenu[] => {
+         return menus.map((menu) => {
+            if (menu.menuId == menuId) {
+               return { ...menu, isOpen: !menu.isOpen }
+            }
+            if (menu.children) {
+               return { ...menu, children: toggleMenuState(menu.children) }
+            }
+            return menu
+         })
+      }
+      setMenus(toggleMenuState(menus))
+   }
    return (
-      <StoreContext.Provider value={{ menus }}>
+      <StoreContext.Provider value={{ menus, toggleMenu }}>
          {children}
       </StoreContext.Provider>
    )
+}
+
+export function useStoreMock() {
+   const contextVal = useContext(StoreContext)
+   return contextVal
 }
