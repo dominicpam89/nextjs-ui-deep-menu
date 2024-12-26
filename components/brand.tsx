@@ -1,23 +1,32 @@
 import { cn } from "@/lib/utils"
-import Image, { ImageProps } from "next/image"
+import Image from "next/image"
 
-interface Props extends ImageProps {
-   invert: boolean
-   containerLabel: string
+interface Props {
+   invert?: boolean
+   containerLabel?: string
+   src?: string
+   alt?: string
+   width: number
+   height: number
 }
 
 export default function Brand({
    invert = false,
    containerLabel = "brand-container",
-   src,
-   alt,
+   src = "/icons/brand.svg",
+   alt = "brand-logo",
    width,
    height,
-   ...props
 }: Props) {
    return (
-      <div aria-label={containerLabel} className={cn({ invert: invert })}>
-         <Image src={src} alt={alt} width={width} height={height} {...props} />
+      <div aria-label={containerLabel}>
+         <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            className={cn({ invert: invert })}
+         />
       </div>
    )
 }
