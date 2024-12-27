@@ -12,18 +12,18 @@ const config: Config = {
             background: "var(--background)",
             foreground: "var(--foreground)",
             "blue-gray": {
-               900: "#101828",
-               800: "#1D2939",
-               600: "#475467",
-               500: "#667085",
-               300: "#D0D5DD",
-               white: "#FFFFFF",
+               900: "var(--blue-gray-900)",
+               800: "var(--blue-gray-800)",
+               600: "var(--blue-gray-600)",
+               500: "var(--blue-gray-500)",
+               300: "var(--blue-gray-300)",
+               white: "var(--blue-gray-white)",
             },
             "arctic-blue": {
-               600: "#253BFF",
+               600: "var(--arctic-blue-600)",
             },
             "lime-green": {
-               400: "#9FF443",
+               400: "var(--lime-green-400)",
             },
          },
          fontFamily: {
