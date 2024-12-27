@@ -7,6 +7,7 @@ import { Plus_Jakarta_Sans as PrimaryFont } from "next/font/google"
 const primaryFont = PrimaryFont({
    subsets: ["latin"],
    variable: "--font-primary",
+   weight: ["200", "300", "400", "500", "600", "700", "800"],
 })
 
 export const metadata: Metadata = {
