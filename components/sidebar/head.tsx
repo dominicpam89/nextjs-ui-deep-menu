@@ -4,7 +4,7 @@ import Icon from "@/components/icon"
 export default function SidebarHead() {
    return (
       <header
-         aria-label="sidebar-head"
+         id="sidebar-head"
          className="py-[30px] px-8 w-full flex justify-between"
       >
          <Brand height={21} width={70} />
