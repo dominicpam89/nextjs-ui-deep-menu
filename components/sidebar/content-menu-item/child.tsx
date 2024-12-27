@@ -6,7 +6,6 @@ interface Props {
 }
 
 export default function ContentMenuChild({ item, index }: Props) {
-   console.log(item.name, item.depth)
    const isOddIndex = index % 2 > 0
    return (
       <li
