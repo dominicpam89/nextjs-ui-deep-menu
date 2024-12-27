@@ -180,9 +180,18 @@ export const menuMock2: TypeMenu[] = [
                         menuId: "lkjhqwie718927",
                         depth: 3,
                         name: "Child 1",
-                        isOpen: false,
+                        isOpen: true,
                         parentId: "asdqwe10897236",
-                        children: [],
+                        children: [
+                           {
+                              menuId: "qwkdboi172t398gb",
+                              depth: 4,
+                              name: "Child 1",
+                              isOpen: false,
+                              parentId: "lkjhqwie718927",
+                              children: [],
+                           },
+                        ],
                      },
                      {
                         menuId: "kjghqoiuwe1823as",
