@@ -24,8 +24,9 @@ export default function ContentMenuItem({ item, index }: ListItemProps) {
          >
             <ContentMenuChild item={item} index={index} />
             {item.children.map((it, idx) => {
-               console.log(it.depth)
-               return <ContentMenuItem key={it.menuId} item={it} index={idx} />
+               return (
+                  <ContentMenuItem key={it.menuId} item={it} index={idx + 1} />
+               )
             })}
          </ContentMenuParent>
       )

@@ -8,11 +8,15 @@ export default function SidebarContentMenu() {
    return (
       <ul
          id="content-menu"
-         className="w-full flex flex-col gap-2 text-blue-gray-white"
+         className="w-full flex flex-col gap-2 text-blue-gray-white text-sm font-[700]"
       >
          {displayedMenus.children.map((item, index) => {
             return (
-               <ContentMenuItem key={item.menuId} item={item} index={index} />
+               <ContentMenuItem
+                  key={item.menuId}
+                  item={item}
+                  index={index + 1}
+               />
             )
          })}
       </ul>
