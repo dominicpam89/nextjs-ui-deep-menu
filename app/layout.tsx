@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import LayoutMain from "@/components/layout/main"
-import StoreMockProvider from "@/lib/store/index.mock"
 import { Plus_Jakarta_Sans as PrimaryFont } from "next/font/google"
+import ReduxProvider from "@/lib/store/index.store"
 
 const primaryFont = PrimaryFont({
    subsets: ["latin"],
@@ -23,9 +23,9 @@ export default function RootLayout({
    return (
       <html lang="en">
          <body className={`${primaryFont.variable} font-primary antialiased`}>
-            <StoreMockProvider>
+            <ReduxProvider isMock={false}>
                <LayoutMain>{children}</LayoutMain>
-            </StoreMockProvider>
+            </ReduxProvider>
          </body>
       </html>
    )
