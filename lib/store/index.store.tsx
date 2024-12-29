@@ -1,3 +1,4 @@
+"use client"
 import { configureStore } from "@reduxjs/toolkit"
 import { Provider, useDispatch, useSelector } from "react-redux"
 import todoReducer, { actions } from "./todo.store"
