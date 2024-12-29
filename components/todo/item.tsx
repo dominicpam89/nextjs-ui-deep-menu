@@ -6,20 +6,26 @@ interface Props {
 }
 
 export default function TodoItem({ todo }: Props) {
-   const { toggleTodo } = useTodoRedux()
+   const { toggleTodo, removeTodo } = useTodoRedux()
    return (
-      <li
-         className={cn("p-2 flex gap-2 items-center", {
-            "line-through": todo.completed,
-         })}
-      >
-         <span>{todo.text}</span>
-         <button
-            className="px-4 py-2 rounded-lg bg-slate-700 text-slate-50"
-            onClick={toggleTodo.bind(null, todo.id)}
-         >
-            Check
-         </button>
+      <li className="p-2 flex gap-2 items-center">
+         <span className={cn("w-5/12", { "line-through": todo.completed })}>
+            {todo.text}
+         </span>
+         <div aria-label="action" className="flex items-center gap-1">
+            <button
+               className="px-4 py-2 rounded-lg bg-slate-700 text-slate-50"
+               onClick={() => toggleTodo(todo.id)}
+            >
+               Check
+            </button>
+            <button
+               className="px-4 py-2 rounded-lg border-slate-700 text-slate-700"
+               onClick={() => removeTodo(todo.id)}
+            >
+               Delete
+            </button>
+         </div>
       </li>
    )
 }

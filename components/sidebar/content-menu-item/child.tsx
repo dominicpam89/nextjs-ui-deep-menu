@@ -8,7 +8,6 @@ interface Props {
 
 export default function ContentMenuChild({ item, index }: Props) {
    const isOddIndex = index % 2 > 0
-   console.log(index, isOddIndex)
    // in figma files, item.depth that more than 2 but less than 4 is able to be selected
    const selected = item.depth > 2 && item.isOpen
    // in figmal files, item depth that equals to 2, is having text-white if open
