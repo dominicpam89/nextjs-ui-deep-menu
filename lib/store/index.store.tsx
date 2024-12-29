@@ -1,6 +1,7 @@
+"use client"
 import { configureStore } from "@reduxjs/toolkit"
 import menuReducers, { menuActions } from "./menu.store"
-import { Provider } from "react-redux"
+import { Provider, useDispatch, useSelector } from "react-redux"
 import { PropsWithChildren } from "react"
 
 export const store = configureStore({
@@ -17,7 +18,7 @@ export default function StoreProvider({ children }: PropsWithChildren) {
 }
 
 export function useStoreProvider() {
-   const dispatch = store.dispatch
-   const menuState = store.getState().menu
+   const dispatch = useDispatch()
+   const menuState = useSelector((state: RootState) => state.menu)
    return { menuState, menuActions, dispatch }
 }
