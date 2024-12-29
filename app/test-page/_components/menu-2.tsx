@@ -1,7 +1,7 @@
 "use client"
 import { cn } from "@/lib/utils"
 import { ChevronRightIcon } from "lucide-react"
-import { PropsWithChildren } from "react"
+import { useState } from "react"
 
 type TypeItem = {
    id: string
@@ -42,13 +42,65 @@ const mockList: TypeItem[] = [
 ]
 
 export default function MenuComponent2() {
+   const [items, setItems] = useState(mockList)
+   // Toggle function to change isOpen for the item with given id
+   const toggle = (id: string) => {
+      const toggleItem = (items: TypeItem[]): TypeItem[] => {
+         return items.map((item) => {
+            if (item.id === id) {
+               // Toggle the current item
+               return { ...item, isOpen: !item.isOpen }
+            }
+            if (item.children.length > 0) {
+               // Recursively toggle children
+               return { ...item, children: toggleItem(item.children) }
+            }
+            return item
+         })
+      }
+
+      // Update the state with the new list after toggle
+      setItems(toggleItem(items))
+   }
    return (
       <ul className="space-y-2 ml-6">
-         {mockList.map((item) => (
-            <MenuItem key={item.id} item={item} />
+         {items.map((item) => (
+            <FirstItem key={item.id} item={item} toggle={toggle} />
          ))}
       </ul>
    )
+}
+
+function FirstItem({
+   item,
+   toggle,
+}: {
+   item: TypeItem
+   toggle: (id: string) => void
+}) {
+   if (item.children.length > 0)
+      return (
+         <li className="cursor-pointer" onClick={() => toggle(item.id)}>
+            <div className="flex items-center">
+               <IconComp isOpen={item.isOpen} />
+               <span>{item.name}</span>
+            </div>
+            <ul className={cn("ml-4", { hidden: !item.isOpen })}>
+               {item.children.map((child) => (
+                  <li key={child.id}>{child.name}</li>
+               ))}
+            </ul>
+         </li>
+      )
+   else
+      return (
+         <li>
+            <div className="flex items-center">
+               <span className="w-4 h-4"></span>
+               <span>{item.name}</span>
+            </div>
+         </li>
+      )
 }
 
 interface IconProps {
@@ -62,36 +114,5 @@ function IconComp({ isOpen }: IconProps) {
             { "rotate-90": isOpen }
          )}
       />
-   )
-}
-
-function ItemParent({ children }: PropsWithChildren) {
-   return <ul className="ml-2 mt-1 border-l border-gray-300">{children}</ul>
-}
-
-function ItemSummary({ item }: { item: TypeItem }) {
-   return (
-      <summary className="cursor-pointer flex items-center text-gray-700 hover:text-blue-600">
-         {item.children.length > 0 && <IconComp isOpen={item.isOpen} />}
-         <span className="ml-2 font-medium">{item.name}</span>
-      </summary>
-   )
-}
-
-// Recursive MenuItem Component
-function MenuItem({ item }: { item: TypeItem }) {
-   return (
-      <li>
-         <details className="group">
-            <ItemSummary item={item} />
-            {item.children.length > 0 && (
-               <ItemParent>
-                  {item.children.map((child) => (
-                     <MenuItem key={child.id} item={child} />
-                  ))}
-               </ItemParent>
-            )}
-         </details>
-      </li>
    )
 }
