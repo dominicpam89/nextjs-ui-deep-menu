@@ -17,17 +17,18 @@ export default function ContentMenuItem({ item, index }: ListItemProps) {
    // if there's children then recursive function is called , which is the this component function itself
    else
       return (
-         <ContentMenuParent
-            id={item.menuId}
-            isOpen={item.isOpen}
-            depth={item.depth}
-         >
+         <ContentMenuParent item={item}>
             <ContentMenuChild item={item} index={index} />
-            {item.children.map((it, idx) => {
-               return (
-                  <ContentMenuItem key={it.menuId} item={it} index={idx + 1} />
-               )
-            })}
+            {item.isOpen &&
+               item.children.map((it, idx) => {
+                  return (
+                     <ContentMenuItem
+                        key={it.menuId}
+                        item={it}
+                        index={idx + 1}
+                     />
+                  )
+               })}
          </ContentMenuParent>
       )
 }

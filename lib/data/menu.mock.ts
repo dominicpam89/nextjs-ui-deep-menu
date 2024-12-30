@@ -57,7 +57,7 @@ export const menuMock1: TypeMenu[] = [
                         menuId: "askd918723",
                         depth: 3,
                         name: "Menus",
-                        isOpen: true,
+                        isOpen: false,
                         parentId: "askdhqw8719273",
                         children: [
                            {
@@ -74,7 +74,7 @@ export const menuMock1: TypeMenu[] = [
                         menuId: "nbkjhsuq8712",
                         depth: 3,
                         name: "APIList",
-                        isOpen: true,
+                        isOpen: false,
                         parentId: "askdhqw8719273",
                         children: [
                            {

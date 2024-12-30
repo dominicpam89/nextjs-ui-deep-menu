@@ -11,22 +11,23 @@ const initialState: InitialState = {
    selectedMenu: null,
 }
 
-const findMenu = (
+const menuFind = (
    menus: TypeMenu[],
    payload: TypeMenu["menuId"]
 ): TypeMenu | undefined => {
-   return menus.find((menu) => {
+   for (const menu of menus) {
       if (menu.menuId == payload) {
          return menu
       }
       if (menu.children && menu.children.length > 0) {
-         const found = findMenu(menu.children, payload)
+         const found = menuFind(menu.children, payload)
          if (found) return found
       }
-   })
+   }
+   return undefined
 }
 
-const addMenu = (
+const menuAdd = (
    menus: TypeMenu[],
    newMenu: TypeMenu,
    parentId?: TypeMenu["menuId"]
@@ -44,14 +45,14 @@ const addMenu = (
       if (menu.children) {
          return {
             ...menu,
-            children: addMenu(menu.children, newMenu, parentId),
+            children: menuAdd(menu.children, newMenu, parentId),
          }
       }
       return menu
    })
 }
 
-const deleteMenu = (
+const menuDelete = (
    menus: TypeMenu[],
    menuId: TypeMenu["menuId"]
 ): TypeMenu[] => {
@@ -61,14 +62,14 @@ const deleteMenu = (
          if (menu.children) {
             return {
                ...menu,
-               children: deleteMenu(menu.children, menuId),
+               children: menuDelete(menu.children, menuId),
             }
          }
          return menu
       })
 }
 
-const updateMenu = (menus: TypeMenu[], updatedMenu: TypeMenu): TypeMenu[] => {
+const menuUpdate = (menus: TypeMenu[], updatedMenu: TypeMenu): TypeMenu[] => {
    return menus.map((menu) => {
       if (menu.menuId === updatedMenu.menuId) {
          return updatedMenu
@@ -76,7 +77,7 @@ const updateMenu = (menus: TypeMenu[], updatedMenu: TypeMenu): TypeMenu[] => {
       if (menu.children) {
          return {
             ...menu,
-            children: updateMenu(menu.children, updatedMenu),
+            children: menuUpdate(menu.children, updatedMenu),
          }
       }
       return menu
@@ -88,7 +89,7 @@ const menuSlice = createSlice({
    initialState,
    reducers: {
       getMenu(state, action: PayloadAction<TypeMenu["menuId"]>) {
-         const menu = findMenu(state.menus, action.payload)
+         const menu = menuFind(state.menus, action.payload)
          if (menu) state.selectedMenu = menu
          else state.selectedMenu = null
       },
@@ -99,17 +100,17 @@ const menuSlice = createSlice({
             parentId?: TypeMenu["menuId"]
          }>
       ) {
-         state.menus = addMenu(
+         state.menus = menuAdd(
             state.menus,
             action.payload.newMenu,
             action.payload.parentId
          )
       },
       deleteMenu(state, action: PayloadAction<TypeMenu["menuId"]>) {
-         state.menus = deleteMenu(state.menus, action.payload)
+         state.menus = menuDelete(state.menus, action.payload)
       },
       updateMenu(state, action: PayloadAction<TypeMenu>) {
-         state.menus = updateMenu(state.menus, action.payload)
+         state.menus = menuUpdate(state.menus, action.payload)
       },
    },
 })
