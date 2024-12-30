@@ -1,9 +1,11 @@
 "use client"
-import { useStoreMock } from "@/lib/store/index.mock"
 import ContentMenuItem from "./content-menu-item"
+import { useStoreProvider } from "@/lib/store/index.store"
 
 export default function SidebarContentMenu() {
-   const { menus } = useStoreMock()
+   const {
+      menuState: { menus },
+   } = useStoreProvider()
    const displayedMenus = menus[0].children[0]
    return (
       <ul
