@@ -5,7 +5,7 @@ export default function LayoutMain({ children }: PropsWithChildren) {
    return (
       <div aria-label="layout-main" className="p-6 flex min-h-screen">
          <SidebarMain />
-         <main>{children}</main>
+         <main className="w-full">{children}</main>
       </div>
    )
 }
